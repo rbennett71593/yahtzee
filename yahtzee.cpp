@@ -9,11 +9,17 @@
 #include <FL/Fl_Box.H>
 #include <FL/Fl_Button.H>
 #include <FL/fl_ask.H>
+#include "dieButton.h"
 
 using namespace std;
 
 Scorecard sc;
 Cup cup(5);
+Fl_DieButton *d0;
+Fl_DieButton *d1;
+Fl_DieButton *d2;
+Fl_DieButton *d3;
+Fl_DieButton *d4;
 
 void newGame(){
   sc.clear();
@@ -33,7 +39,15 @@ void score(int category){
 }
 
 void roll(){
-  cup.shake();
+  if(sc.getRolls() <= 2){
+    cup.shake();
+    d0->update(cup);
+    d1->update(cup);
+    d2->update(cup);
+    d3->update(cup);
+    d4->update(cup);
+  }
+  sc.incRoll();
 }
 
 void rollCB(Fl_Widget *, void *){
@@ -48,7 +62,7 @@ int main(int argc, char *argv[])
 
   //cout << "Welcome!" << endl;
   newGame();
-  Fl_Box *title = new Fl_Box(20,40,200,100,"Yahtzee!");
+  Fl_Box *title = new Fl_Box(5,5,200,60,"Yahtzee!");
   title->box(FL_UP_BOX);
   title->labelfont(FL_BOLD+FL_ITALIC);
   title->labelsize(20);
@@ -61,7 +75,16 @@ int main(int argc, char *argv[])
   Fl_Button *quitB = new Fl_Button(495,370,100,25, "Quit");
   quitB->callback(exitcb,0);
 
-  
+  d0 = new Fl_DieButton(20,100,100,100,0);
+  d0->callback(Fl_DieButton::clicked);
+  d1 = new Fl_DieButton(125,100,100,100,1);
+  d1->callback(Fl_DieButton::clicked);
+  d2 = new Fl_DieButton(230,100,100,100,2);
+  d2->callback(Fl_DieButton::clicked);
+  d3 = new Fl_DieButton(335,100,100,100,3);
+  d3->callback(Fl_DieButton::clicked);
+  d4 = new Fl_DieButton(440,100,100,100,4);
+  d4->callback(Fl_DieButton::clicked);
   
   /*  
     else if (op == "K"){ //freeze dice

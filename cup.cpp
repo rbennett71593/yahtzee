@@ -47,3 +47,8 @@ vector<int> Cup::getValues() {
     }
     return res;
 }
+
+int Cup::getValue(int dieID){
+  vector<int> dice = this->getValues();
+  return dice[dieID];
+}

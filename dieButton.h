@@ -1,25 +1,25 @@
 #include <FL/Fl_Button.H>
 #include <string>
 
-class dieButton : public Fl_Button {
+class Fl_DieButton : public Fl_Button {
 
-private: 
-  int value;
-
+private:
+	int ID;
 public:
- dieCounterButton(int x, int y, int w, int h, char *label, int dieID) 
- : Fl_Button(x,y,w,h,label) {
-   this->count = init;
-   this->copy_label(std::to_string(dieID).c_str());
+ Fl_DieButton(int x, int y, int w, int h, int dieID) 
+ : Fl_Button(x,y,w,h,std::to_string(dieID).c_str()) {
+   this->ID = dieID;
+   this->copy_label(std::to_string(ID).c_str());
  }
  
-    int getValue() { return  ; }
 
-     static void clicked(Fl_Widget *w, void *) {
-         dieButton *myButton = (dieButton *)w;
-         myButton->increment();
-         int value = myButton->getValue();
-         myButton->copy_label(std::to_string(value).c_str());
+
+    static void clicked(Fl_Widget *w, void *) {
+         Fl_DieButton *myButton = (Fl_DieButton *)w;
+         myButton->copy_label(std::to_string(100).c_str());
      }
+    void update(Cup &cup){
+	this->copy_label(std::to_string(cup.getValue(ID)).c_str());
+    }
 
 };

@@ -8,6 +8,7 @@ Scorecard::Scorecard(){
 void Scorecard::clear(){
   for(int& i : scores)
     i = 0;
+  resetRolls();
 }
 
 int Scorecard::getScore(int category){
@@ -34,6 +35,16 @@ int Scorecard::count(int value, vector<int>&dice){
     if (die == value)
       total += die;
   return total;
+}
+
+int Scorecard::getRolls(){
+  return rolls;
+}
+void Scorecard::incRoll(){
+  rolls++;
+}
+void Scorecard::resetRolls(){
+  rolls = 0;
 }
 
 void Scorecard::validate(int &category, vector<int> dice){
@@ -97,6 +108,7 @@ void Scorecard::validate(int &category, vector<int> dice){
     scores[category] = sum(dice);
     break;
   }
+  resetRolls();
 }
 
 string Scorecard::printScore(){

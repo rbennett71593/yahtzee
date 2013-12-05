@@ -21,5 +21,6 @@ public:
     void unfreezeAll();
     void add(FreezableDie&);
     vector<int> getValues();
+    int getValue(int);
 
 };
