@@ -1,16 +1,28 @@
-CPP = g++ 
-CPPFLAGS = -std=c++0x -g
-#LDLIBS = -framework OpenGL -framework GLUT -framework Foundation -L/usr/local/lib -ljpeg -lm
+ARCH = $(shell uname)
 
-OBJS = die.o cup.o freezableDie.o scorecard.o
+ifeq ($(ARCH),Darwin)
+	CXX	 = g++
+	LINK     = g++
+else
+	CXX	 = g++-4.8
+	LINK     = g++-4.8
+endif
 
-all:	dietest
+DEBUG    = -g
+CXXFLAGS = $(shell fltk-config --cxxflags ) -std=c++11 -I.
+LDFLAGS  = $(shell fltk-config --ldflags )
+LDSTATIC = $(shell fltk-config --ldstaticflags )
+
+OBJS = cup.o die.o freezableDie.o scorecard.o
 
 .o:	$@.cpp $@.h
-	$(CPP) $(CPPFLAGS) -c $@.cpp
+	$(CXX) $(CXXFLAGS) $(DEBUG) -c $@.cpp
 
-dietest:	dietest.cpp $(OBJS)
-	$(CPP) $(CPPFLAGS) dietest.cpp $(OBJS) -o dietest
 
-yahtzee:	yahtzee.cpp $(OBJS)
-	$(CPP) $(CPPFLAGS) yahtzee.cpp $(OBJS) -o yahtzee
+yahtzee: 	yahtzee.cpp $(OBJS)
+	$(CXX) $(CXXFLAGS) yahtzee.cpp $(OBJS) $(LDFLAGS) -o yahtzee
+
+
+clean: 
+	rm -f *.o 2> /dev/null
+	rm -f yahtzee
