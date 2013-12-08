@@ -13,10 +13,13 @@ CXXFLAGS = $(shell fltk-config --cxxflags ) -std=c++11 -I.
 LDFLAGS  = $(shell fltk-config --ldflags )
 LDSTATIC = $(shell fltk-config --ldstaticflags )
 
-OBJS = cup.o die.o freezableDie.o scorecard.o
+OBJS = cup.o die.o freezableDie.o scorecard.o dieButton.o
 
 .o:	$@.cpp $@.h
 	$(CXX) $(CXXFLAGS) $(DEBUG) -c $@.cpp
+
+dieButton.o:	dieButton.h
+	$(CXX) $(CXXFLAGS) $(DEBUG) -c dieButton.cpp
 
 
 yahtzee: 	yahtzee.cpp $(OBJS)

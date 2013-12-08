@@ -1,6 +1,8 @@
 #include<vector>
 #include "freezableDie.h"
 
+#ifndef FDIE
+#define FDIE
 using namespace std;
 
 class Cup {
@@ -24,3 +26,4 @@ public:
     int getValue(int);
 
 };
+#endif
